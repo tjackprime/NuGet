@@ -233,6 +233,9 @@
     <value>Set the minClientVersion attribute for the created package.</value>
     <comment>Please don't localize "minClientVersion"</comment>
   </data>
+  <data name="NoCompression_Description" xml:space="preserve">
+    <value>Set CompressionLevel of files being added to package to NoCompression.</value>
+  </data>
   <data name="NoDefaultExcludes_Description" xml:space="preserve">
     <value>Prevent default exclusion of NuGet package files and files and folders starting with a dot e.g. .svn.</value>
   </data>

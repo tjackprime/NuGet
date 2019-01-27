@@ -915,6 +915,15 @@ namespace NuGet.CommandLine.XPlat {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set CompressionLevel of files being added to package to NoCompression..
+        /// </summary>
+        internal static string NoCompression_Description {
+            get {
+                return ResourceManager.GetString("NoCompression_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prevent default exclusion of NuGet package files and files and folders starting with a dot e.g. .svn..
         /// </summary>
         internal static string NoDefaultExcludes_Description {
