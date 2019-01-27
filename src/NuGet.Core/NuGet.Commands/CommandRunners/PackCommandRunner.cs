@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using NuGet.Packaging.Rules;
 using NuGet.Common;
@@ -694,7 +695,7 @@ namespace NuGet.Commands
 
             if (string.IsNullOrEmpty(_packArgs.BasePath))
             {
-                return new PackageBuilder(path, _packArgs.GetPropertyValue, !_packArgs.ExcludeEmptyDirectories);
+                return new PackageBuilder(path, _packArgs.GetPropertyValue, !_packArgs.ExcludeEmptyDirectories, _packArgs.NoCompression ? CompressionLevel.NoCompression : CompressionLevel.Optimal);
             }
             return new PackageBuilder(path, _packArgs.BasePath, _packArgs.GetPropertyValue, !_packArgs.ExcludeEmptyDirectories);
         }

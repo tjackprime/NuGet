@@ -25,10 +25,12 @@ namespace NuGet.Packaging
         private static readonly Uri DefaultUri = new Uri("http://defaultcontainer/");
         internal const string ManifestRelationType = "manifest";
         private readonly bool _includeEmptyDirectories;
+        private readonly CompressionLevel _compressionLevel = CompressionLevel.Optimal;
 
-        public PackageBuilder(string path, Func<string, string> propertyProvider, bool includeEmptyDirectories)
+        public PackageBuilder(string path, Func<string, string> propertyProvider, bool includeEmptyDirectories, CompressionLevel compressionLevel)
             : this(path, Path.GetDirectoryName(path), propertyProvider, includeEmptyDirectories)
         {
+            _compressionLevel = compressionLevel;
         }
 
         public PackageBuilder(string path, string basePath, Func<string, string> propertyProvider, bool includeEmptyDirectories)
@@ -597,7 +599,7 @@ namespace NuGet.Packaging
                 {
                     try
                     {
-                        CreatePart(package, file.Path, stream, file.LastWriteTime); 
+                        CreatePart(package, file.Path, stream, file.LastWriteTime, _compressionLevel); 
                         var fileExtension = Path.GetExtension(file.Path);
 
                         // We have files without extension (e.g. the executables for Nix)
@@ -739,7 +741,7 @@ namespace NuGet.Packaging
             }
         }
 
-        private static void CreatePart(ZipArchive package, string path, Stream sourceStream, DateTimeOffset lastWriteTime)
+        private static void CreatePart(ZipArchive package, string path, Stream sourceStream, DateTimeOffset lastWriteTime, CompressionLevel compressionLevel = CompressionLevel.Optimal)
         {
             if (PackageHelper.IsNuspec(path))
             {
@@ -747,7 +749,7 @@ namespace NuGet.Packaging
             }
 
             string entryName = CreatePartEntryName(path);
-            var entry = package.CreateEntry(entryName, CompressionLevel.Optimal);
+            var entry = package.CreateEntry(entryName, compressionLevel);
             entry.LastWriteTime = lastWriteTime;
             using (var stream = entry.Open())
             {

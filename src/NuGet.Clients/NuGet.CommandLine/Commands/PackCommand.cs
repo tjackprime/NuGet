@@ -50,6 +50,9 @@ namespace NuGet.CommandLine
         [Option(typeof(NuGetCommand), "PackageCommandBuildDescription")]
         public bool Build { get; set; }
 
+        [Option(typeof(NuGetCommand), "PackageCommandNoCompression")]
+        public bool NoCompression { get; set; }
+
         [Option(typeof(NuGetCommand), "PackageCommandNoDefaultExcludes")]
         public bool NoDefaultExcludes { get; set; }
 
@@ -145,6 +148,7 @@ namespace NuGet.CommandLine
                 }
             }
             packArgs.MinClientVersion = _minClientVersionValue;
+            packArgs.NoCompression = NoCompression;
             packArgs.NoDefaultExcludes = NoDefaultExcludes;
             packArgs.NoPackageAnalysis = NoPackageAnalysis;
             if (Properties.Any())

@@ -29,6 +29,7 @@ namespace NuGet.Commands
         public Version MinClientVersion { get; set; }
         public SymbolPackageFormat SymbolPackageFormat { get; set; } = SymbolPackageFormat.SymbolsNupkg;
         public Lazy<string> MsBuildDirectory { get; set; }
+        public bool NoCompression { get; set; }
         public bool NoDefaultExcludes { get; set; }
         public bool NoPackageAnalysis { get; set; }
         public string OutputDirectory { get; set; }
